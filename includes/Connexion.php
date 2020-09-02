@@ -36,4 +36,5 @@ class Connexion {
         }
 
         return self::$connexion;
-    } 
+    }
+}
