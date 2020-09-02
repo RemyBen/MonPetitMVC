@@ -11,6 +11,10 @@
  *
  * @author remy.benalouane
  */
+namespace Tools;
+
+use PDO;
+
 class Connexion {
 
     private static $connexion = null;

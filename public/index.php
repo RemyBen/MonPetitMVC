@@ -29,7 +29,6 @@ and open the template in the editor.
             call_user_func_array(array($c, $action), $params);
         } catch (Exception $ex) {
             echo $ex->getMessage();
-            
         }
         ?>
     </body>
