@@ -26,4 +26,11 @@ class GestionCommandeModel {
         $ligne->execute();
         return $ligne->fetchObject(Commande::class);        
     }
+    
+    public function findAll(){
+        $unObjetPdo = Connexion::getConnexion();
+        $sql = "select * from COMMANDE";
+        $lignes = $unObjetPdo->query($sql);
+        return $lignes->fetchAll(\PDO::FETCH_CLASS, Commande::class);
+    }
 }
