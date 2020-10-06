@@ -47,4 +47,15 @@ class GestionClientController {
             throw new Exception("Aucun Client à afficher");
         }
     }
+    
+    public function creerClient($params){
+        $vue = "GestionClientView\\creerClient.html.twig";
+        \Tools\MyTwig::afficheVue($vue, array());
+    }
+    
+    public function enregistreClient($param) {
+        $client = new Client($param);
+        $modele = new GestionClientModel();
+        $modele->enregistreClient($client);
+    }
 }
