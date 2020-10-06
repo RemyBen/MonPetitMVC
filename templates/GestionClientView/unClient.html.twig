@@ -1,14 +1,34 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
-    <p> <h2> Informations du client numéro {{ unClient.getId() }}</h2></p>
-    <p>{{ unClient.getPrenomCli() }} {{ unClient.getNomCli() }}</p>
-    <p>{{ unClient.getAdresseRue1Cli() }}
-    {% if unClient.getAdresseRue2Cli() %}
-        <p>{{ unClient.getAdresseRue2Cli() }}</p>
+    {%  block recherche %}
+    <div class="container">
+        <h2>Recherche</h2>
+        <form action="?c=GestionClient&a=chercheUn" method="post">
+            <div class="form-group">
+                <label for="Numéro de client">Id du client</label>
+                <select class="form-control" id="titre" name="id">
+                    {% for id in lesId %}
+                        <option>{{  id['id'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <input type="submit" value="Voir" class="btn btn-default"/>
+        </form>
+    {%  endblock %}
+    {%  if unClient %}
+        {%  block affiche %}        
+            <p> <h2> Informations du client numéro {{ unClient.getId() }}</h2></p>
+            <p>{{ unClient.getPrenomCli() }} {{ unClient.getNomCli() }}</p>
+            <p>{{ unClient.getAdresseRue1Cli() }}
+            {% if unClient.getAdresseRue2Cli() %}
+                <p>{{ unClient.getAdresseRue2Cli() }}</p>
+            {% endif %}
+            <p>{{ unClient.getCpCli() }} {{ unClient.getVilleCli() }}</p>
+            <p>{{ unClient.getTelCli() }} </p>
+        {% endblock %}
     {% endif %}
-    <p>{{ unClient.getCpCli() }} {{ unClient.getVilleCli() }}</p>
-    <p>{{ unClient.getTelCli() }} </p>
-{% endblock %}
+    </div>
+{%  endblock %}
 {%  block footer %}
     {{  parent() }}
     Fin de l'affichage

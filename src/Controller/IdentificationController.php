@@ -15,6 +15,6 @@ namespace APP\Controller;
 
 class IdentificationController {
     public function login(){
-        header('location:https://lyc-bonaparte.fr');
+        header('location:http://monpetitmvc/?c=GestionClient&a=chercheUn');
     }
 }

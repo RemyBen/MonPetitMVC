@@ -22,16 +22,24 @@ class GestionClientController {
     public function chercheUn($params){
         // appel de la méthode find($id) de la classe Model adequate
         $modele = new GestionClientModel();
-        $id = filter_var(intval($params["id"]), FILTER_VALIDATE_INT);
-        $unClient = $modele->find($id);
-        if($unClient) {
-            $r = new ReflectionClass($this);
-            $vue = str_replace('Controller', 'View', $r->getShortName())."/unClient.html.twig";
-            \Tools\MyTwig::afficheVue($vue, array('unClient'=>$unClient));
-            //include_once PATH_VIEW . str_replace('Controller', 'View', $r->getShortName()) . "/unClient.php";
-        } else {
-            throw new Exception("Client" . $id . " inconnu");
+        // dans tous les cas on récupère les Ids des clients
+        $ids = $modele->findIds();
+        // on place ces Ids dans le tableau de paramètres que l'on va envoyer à la vue
+        $params['lesId']=$ids;
+        // on teste si l'id du client à chercher a été passé dans l'URL
+        if (array_key_exists('id', $params)){
+            $id = filter_var(intval($params["id"]), FILTER_VALIDATE_INT);
+            $unClient = $modele->find($id);
+            // on placve le client trouvé dans le tableau de paramètres que l'on va envoyer à la vue
+            $params['unClient']=$unClient;
         }
+        $r = new ReflectionClass($this);
+        $vue = str_replace('Controller', 'View', $r->getShortName())."/unClient.html.twig";
+        \Tools\MyTwig::afficheVue($vue, $params);
+            //include_once PATH_VIEW . str_replace('Controller', 'View', $r->getShortName()) . "/unClient.php";
+        /*} else {
+            throw new Exception("Client" . $id . " inconnu");
+        }*/
     }
     
     public function chercheTous(){
